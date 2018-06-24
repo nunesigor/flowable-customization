@@ -1,0 +1,10 @@
+/flowable-jpa-dependencies/target/
+/flowable-jpa-dependencies/.project
+/flowable-jpa-dependencies/.settings/
+flowable-jpa-dependencies/.classpath
+flowable-example1/.settings/
+flowable-example1/.project
+flowable-example1/.classpath
+flowable-example1/target/
+.project
+
