@@ -64,6 +64,8 @@
                     <target>
                         <copy file="target/${project.artifactId}-${project.version}.jar" 
                               tofile="${tomcat-home}/webapps/flowable-task/WEB-INF/lib/${project.artifactId}-${project.version}.jar"/>
+                    	<copy file="target/${project.artifactId}-${project.version}.jar" 
+                              tofile="${tomcat-home}/webapps/flowable-rest/WEB-INF/lib/${project.artifactId}-${project.version}.jar"/>
                     </target>
                 </configuration>
                 <executions>
