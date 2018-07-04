@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  *
  * @author dev
  */
-@Component
+@Component("jpaTask")
 public class JPATask implements JavaDelegate {
 
     @Autowired
