@@ -22,7 +22,7 @@ module.exports = function (grunt) {
                 }
             }
         },
-        clean: ["dist"],
+        clean: ["dist",],
         run: {
             options: {
                 
