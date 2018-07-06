@@ -1,6 +1,12 @@
+.left-botton {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
 .loader {
-    font-size: 5px;
-    margin: 50px auto;
+    font-size: 3px;
+    margin: 0px 0px 10px 10px;
     text-indent: -9999em;
     width: 11em;
     height: 11em;
@@ -29,7 +35,7 @@
     content: '';
   }
   .loader:after {
-    background: #ffffff;
+    background: #f5f5f5;
     width: 75%;
     height: 75%;
     border-radius: 50%;
@@ -62,3 +68,18 @@
     }
   }
   
+  html,
+body {
+  height: 100%;
+}
+
+.text-center {
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
