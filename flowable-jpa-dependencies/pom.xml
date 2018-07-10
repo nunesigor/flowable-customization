@@ -8,7 +8,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <tomcat-home>/home/dev/tools/tomcat-9.0.8</tomcat-home>
+        <tomcat-home>C:\dev\apache-tomcat-9.0.10</tomcat-home>
     </properties>
     <dependencies>
         <dependency>
