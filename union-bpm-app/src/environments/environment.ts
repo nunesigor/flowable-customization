@@ -17,7 +17,7 @@ export const environment = {
   idm_app: 'http://localhost:8080/flowable-idm/',
   task_app: 'https://localhost:8080/flowable-task/',
   admin_app: 'https://localhost:8080/flowable-admin/',
-  rest_app: 'https://localhost:8080/flowable-rest/'
+  rest_app: 'http://localhost:8080/flowable-rest/'
 
 };
 

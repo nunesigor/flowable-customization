@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserXhr, BaseRequestOptions, RequestOptions } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class CustomBrowserXhr extends BrowserXhr {
@@ -53,10 +54,13 @@ export class CustomRequestOptions extends BaseRequestOptions {
   providers: [
     //services and guards here
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: RequestOptions, useClass: CustomRequestOptions },
+    { provide: BaseRequestOptions, useClass: CustomRequestOptions },
     { provide: BrowserXhr, useClass: CustomBrowserXhr },
+    CookieService,
     AuthService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

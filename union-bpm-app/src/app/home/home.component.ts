@@ -14,10 +14,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.auth.getUserData().subscribe(res=>{
-      if (res){
-        console.log(res);
-        this.auth.loggedUser.next(res);
-      }
+      console.log(res);
+      this.auth.loggedUser.next(res);
     },
     (error)=>{
       console.log(error);

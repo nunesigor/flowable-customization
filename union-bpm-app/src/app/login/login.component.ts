@@ -17,35 +17,46 @@ export class LoginComponent implements OnInit {
   remember: AbstractControl;
 
 
-  constructor(private auth:AuthService,
-    private router:Router,
-    private formBuilder: FormBuilder) { 
-      this.form = formBuilder.group({
-        'user' : ['',Validators.required],
-        'password' : ['',Validators.required],
-        'remember' : 'false'
-      });
-      this.user = this.form.controls['user'];
-      this.password = this.form.controls['password'];
-      this.remember = this.form.controls['remember'];
-    }
-
-  ngOnInit() {
-    
+  constructor(private auth: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder) {
+    this.form = formBuilder.group({
+      'user': ['', Validators.required],
+      'password': ['', Validators.required],
+      'remember': 'false'
+    });
+    this.user = this.form.controls['user'];
+    this.password = this.form.controls['password'];
+    this.remember = this.form.controls['remember'];
   }
 
-  submit(){
-    console.log('>>> submit ' + this.user.value + ' ' + this.remember.value);
-    this.auth.login(this.user.value, this.password.value, this.remember.value).subscribe(resp=>{
-      if (resp){
-        console.log(resp);
+  ngOnInit() {
+
+  }
+
+  submit() {
+    this.auth.login(this.user.value, this.password.value, this.remember.value).subscribe(resp => {
+      console.log(resp);
+      this.auth.registerCookie().subscribe(resp2 => {
+        console.log(resp2);
         this.router.navigate(['home']);
-      }
+      },
+        (error2) => {
+          console.log(error2);
+          this.router.navigate(['home']);
+        });
     },
-    (error)=>{
-      console.log(error);
-      this.router.navigate(['home']);
-    });
+      (error) => {
+        console.log(error);
+        this.auth.registerCookie().subscribe(resp2 => {
+          console.log(resp2);
+          this.router.navigate(['home']);
+        },
+          (error2) => {
+            console.log(error2);
+            this.router.navigate(['home']);
+          });
+      });
   }
 
 }
