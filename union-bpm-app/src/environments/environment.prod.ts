@@ -6,6 +6,7 @@ export const environment = {
   idm_app: 'https://%%TOMCAT_HOST%%/flowable-idm/',
   task_app: 'https://%%TOMCAT_HOST%%/flowable-task/',
   admin_app: 'https://%%TOMCAT_HOST%%/flowable-admin/',
-  rest_app: 'https://%%TOMCAT_HOST%%/flowable-rest/'
+  rest_app: 'https://%%TOMCAT_HOST%%/flowable-rest/',
+  rest_client_app: 'http://%%TOMCAT_HOST%%/restclientapp/'
 
 };

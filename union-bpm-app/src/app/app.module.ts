@@ -4,25 +4,28 @@ import { NgModule, Injectable } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app.routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserXhr, BaseRequestOptions, RequestOptions } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class CustomBrowserXhr extends BrowserXhr {
-  constructor() {
-    super();
-  }
+export class CustomHttpInterceptor implements HttpInterceptor {
+  
+  constructor() {}
 
-  build(): any {
-    let xhr = super.build();
-    xhr.withCredentials = true;
-    return <any>(xhr);
+  intercept(req: HttpRequest<any>, next: HttpHandler):
+    Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
+    
+    const authReq = req.clone({ headers: req.headers.set("X-Requested-With", "XMLHttpRequest")});
+
+    return next.handle(authReq);
   }
+  
 }
 
 export class CustomRequestOptions extends BaseRequestOptions {
@@ -55,7 +58,7 @@ export class CustomRequestOptions extends BaseRequestOptions {
     //services and guards here
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: BaseRequestOptions, useClass: CustomRequestOptions },
-    { provide: BrowserXhr, useClass: CustomBrowserXhr },
+    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true  },
     CookieService,
     AuthService
   ],

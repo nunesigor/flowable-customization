@@ -11,13 +11,16 @@ export const environment = {
   //idm_app: 'https://%%TOMCAT_HOST%%/flowable-idm/',
   //task_app: 'https://%%TOMCAT_HOST%%/flowable-task/',
   //admin_app: 'https://%%TOMCAT_HOST%%/flowable-admin/',
-  //rest_app: 'https://%%TOMCAT_HOST%%/flowable-rest/'
+  //rest_app: 'https://%%TOMCAT_HOST%%/flowable-rest/',
+  //rest_client_app: 'http://%%TOMCAT_HOST%%/restclientapp/'
+
 
   //for development
   idm_app: 'http://localhost:8080/flowable-idm/',
   task_app: 'https://localhost:8080/flowable-task/',
   admin_app: 'https://localhost:8080/flowable-admin/',
-  rest_app: 'http://localhost:8080/flowable-rest/'
+  rest_app: 'http://localhost:8080/flowable-rest/',
+  rest_client_app: 'http://localhost:8080/restclientapp/'
 
 };
 

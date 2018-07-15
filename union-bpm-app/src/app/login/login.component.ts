@@ -35,27 +35,19 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.auth.login(this.user.value, this.password.value, this.remember.value).subscribe(resp => {
+    let credentials = {};
+    credentials['username'] = this.user.value;
+    credentials['password'] = this.password.value;
+    this.auth.login(credentials, ()=>{
+      console.log('callback.....');
+      console.log(this);
+    }).subscribe(resp => {
+      console.log('resp.....');
       console.log(resp);
-      this.auth.registerCookie().subscribe(resp2 => {
-        console.log(resp2);
-        this.router.navigate(['home']);
-      },
-        (error2) => {
-          console.log(error2);
-          this.router.navigate(['home']);
-        });
     },
       (error) => {
+        console.log('error.....');
         console.log(error);
-        this.auth.registerCookie().subscribe(resp2 => {
-          console.log(resp2);
-          this.router.navigate(['home']);
-        },
-          (error2) => {
-            console.log(error2);
-            this.router.navigate(['home']);
-          });
       });
   }
 
