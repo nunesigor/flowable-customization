@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,10 +28,9 @@ public class CustomAuthenticationManager implements AuthenticationManager {
 		Authentication newUser = null;
 		Optional<User> optuser = userRepository.findById(authentication.getPrincipal().toString());
 		if (optuser.isPresent()) {
-			if (authentication.getCredentials().toString().equals(optuser.get().getPwd())) {
+			if (authentication.getCredentials().toString().equals(optuser.get().getPwd()))
 				newUser = newUserAuth(authentication);
-				newUser.setAuthenticated(true);
-			} else
+			else
 				throw new BadCredentialsException("Bad Credentials");
 		} else
 			throw new BadCredentialsException("Bad Credentials");
