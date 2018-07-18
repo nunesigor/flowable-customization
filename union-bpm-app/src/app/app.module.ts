@@ -4,7 +4,7 @@ import { NgModule, Injectable } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app.routing.module';
-import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent, HTTP_INTERCEPTORS, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,25 +21,25 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-    
-    const authReq = req.clone({ headers: req.headers.set("X-Requested-With", "XMLHttpRequest")});
-
+    let headers = new HttpHeaders();
+    headers = req.headers;
+    headers.set("X-Requested-With", "XMLHttpRequest");
+    headers.set('Content-Type', 'application/json');
+    const authReq = req.clone({ headers: headers, responseType:"json", withCredentials:true});
+    console.log(authReq);
     return next.handle(authReq);
   }
   
 }
 
-export class CustomRequestOptions extends BaseRequestOptions {
-  constructor() {
-    super();
-    if (!this.headers.has('XMLHttpRequest')) {
-      this.headers.append('X-Requested-With', 'XMLHttpRequest');
-    }
-    if (!this.headers.has('application/json')) {
-      this.headers.append('Content-type', 'application/json');
-    }
-  }
-}
+// @Injectable()
+// export class CustomRequestOptions extends BaseRequestOptions {
+//   constructor() {
+//     super();
+//     this.headers.append('X-Requested-With', 'XMLHttpRequest');
+//     this.headers.append('Content-Type', 'application/json');
+//   }
+// }
 
 @NgModule({
   declarations: [
@@ -58,7 +58,7 @@ export class CustomRequestOptions extends BaseRequestOptions {
   providers: [
     //services and guards here
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: BaseRequestOptions, useClass: CustomRequestOptions },
+    // { provide: BaseRequestOptions, useClass: CustomRequestOptions },
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true  },
     CookieService,
     AuthService,

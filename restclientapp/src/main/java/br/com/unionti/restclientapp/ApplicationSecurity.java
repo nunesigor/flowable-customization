@@ -44,7 +44,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
  	protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
- 		auth.parentAuthenticationManager(authenticationManager);
+ 		auth.parentAuthenticationManager(authenticationManager).eraseCredentials(false);
  	}
 
     @Bean

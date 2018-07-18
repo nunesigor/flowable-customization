@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { FlowableService } from '../flowable.service';
+import { FlowableService, Body, Method } from '../flowable.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -10,17 +11,19 @@ import { FlowableService } from '../flowable.service';
 })
 export class HomeComponent implements OnInit {
 
+  user = {};
+
   constructor(private auth:AuthService,
     private flowable:FlowableService,
     private router:Router) { }
 
   ngOnInit() {
-    
-    
-
-    this.auth.getUserData().subscribe(res=>{
+    let data:Body = new Body();
+    data.method = Method.GET
+    data.uri = 'idm-api/users';
+    this.flowable.invoke(data).subscribe(res=>{
       console.log(res);
-      this.auth.loggedUser.next(res);
+      this.user = res;
     },
     (error)=>{
       console.log(error);
