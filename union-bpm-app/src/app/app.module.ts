@@ -12,6 +12,7 @@ import { BrowserXhr, BaseRequestOptions, RequestOptions } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { FlowableService } from './flowable.service';
 
 @Injectable()
 export class CustomHttpInterceptor implements HttpInterceptor {
@@ -60,7 +61,8 @@ export class CustomRequestOptions extends BaseRequestOptions {
     { provide: BaseRequestOptions, useClass: CustomRequestOptions },
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true  },
     CookieService,
-    AuthService
+    AuthService,
+    FlowableService
   ],
   bootstrap: [
     AppComponent

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,10 +16,10 @@ public class RestTemplateFactory implements FactoryBean<RestTemplate>, Initializ
 
 	private RestTemplate restTemplate;
 	
-	@Value("${flowable.rest.user}")
+//	@Value("${flowable.rest.user}")
 	private String user;
 	
-	@Value("${flowable.rest.password}")
+//	@Value("${flowable.rest.password}")
 	private String password;
 	
 	@Value("${flowable.rest.hostname}")
@@ -41,11 +43,13 @@ public class RestTemplateFactory implements FactoryBean<RestTemplate>, Initializ
 		return true;
 	}
 
-	public void afterPropertiesSet() {
+	@Override
+	public void afterPropertiesSet() throws Exception {
 		HttpHost host = new HttpHost(hostname, port, protocol);
         final ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactoryBasicAuth(host);
         restTemplate = new RestTemplate(requestFactory);
-        restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor(user, password));
 	}
+	
+	
 	
 }

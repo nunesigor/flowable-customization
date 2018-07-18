@@ -20,7 +20,7 @@ export const environment = {
   task_app: 'https://localhost:8080/flowable-task/',
   admin_app: 'https://localhost:8080/flowable-admin/',
   rest_app: 'http://localhost:8080/flowable-rest/',
-  rest_client_app: 'http://localhost:8080/restclientapp/'
+  rest_client_app: 'http://localhost:8081/restclientapp/'
 
 };
 

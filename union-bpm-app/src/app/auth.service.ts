@@ -18,12 +18,12 @@ export class AuthService{
         private cookieService: CookieService){
     }
 
-    public login(credentials, callback){
+    public login(credentials){
         const headers = new HttpHeaders(credentials ? {
             authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
         } : {});
         //return this.http.get(environment.rest_app + 'idm-api/users', {headers:headers});
-        return this.http.get(environment.rest_client_app + 'login', {headers:headers});
+        return this.http.get(environment.rest_client_app + 'token', {headers:headers});
     }
 
     public registerCookie(){
