@@ -26,14 +26,16 @@ export class AuthService{
         return this.http.get(environment.rest_client_app + 'token', {headers:headers});
     }
 
-    public registerCookie(){
-        // let headers = new HttpHeaders()
-        //     .set('X-Requested-With','XMLHttpRequest');
-        // return this.http.get(environment.idm_app + 'app/rest/authenticate', {headers:headers,withCredentials:true});
+    public logout(){
+        return this.http.get(environment.rest_client_app + 'logout');
     }
 
     public getUserData(){
-        return this.http.get(environment.rest_app + 'idm-api/users');
+        return this.http.get(environment.rest_client_app + 'loggeduser');
+    }
+
+    public changePassword(data){
+        return this.http.post(environment.rest_client_app + 'changepassword',data);
     }
 
 

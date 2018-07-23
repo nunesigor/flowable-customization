@@ -29,7 +29,4 @@ export class FlowableService{
         return this.http.post(environment.rest_client_app + 'invoke',body);
     }
 
-    // public getUserData(){
-    //     return this.http.get(environment.rest_app + 'idm-api/users');
-    // }
 }

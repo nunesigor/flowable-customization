@@ -1,4 +1,4 @@
-package br.com.unionti.restclientapp.rest;
+package br.com.unionti.restclientapp.rest.mapping;
 
 import java.io.Serializable;
 

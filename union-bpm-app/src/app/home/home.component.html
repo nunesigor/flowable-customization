@@ -1,31 +1,39 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="#">Fixed navbar</a>
+  <a class="navbar-brand" href="/#/home"><img class="brand-img" src="../../assets/img/flowable-logo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">Tarefas <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">Processos</a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+      </li> -->
     </ul>
-    <!--  <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form> -->
+    <form class="form-inline mt-2 mt-md-0">
+      <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle"
+                aria-controls="dropdown-basic" style="color: white;background-color: #31373e;">
+          {{user.firstName}} {{user.lastName}}<span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <!-- <li role="menuitem"><a class="dropdown-item" href="#">manage data</a></li> -->
+          <li role="menuitem"><a class="dropdown-item" routerLink="./changepassword">Change password</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="logout()">Logout</a>
+          </li>
+        </ul>
+      </div>
+      </form>
   </div>
 </nav>
 
-<main role="main" class="container">
-  <div class="jumbotron">
-    <pre>
-        {{user | json}}
-    </pre>
-  </div>
+<main role="main" class="container" style="padding-top:  5em;">
+  <router-outlet></router-outlet>
 </main>
