@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
 
   logout(){
     this.auth.logout().subscribe(res=>{
-      this.cookie.deleteAll('/');
+      //this.cookie.deleteAll('/');
       this.router.navigate(['login']);
     });
   }

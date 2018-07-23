@@ -17,10 +17,10 @@ public class CustomAuthenticationEntryPoint extends BasicAuthenticationEntryPoin
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
-		response.addHeader("WWW-Authenticate", "Basic realm=" +getRealmName());
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		response.addHeader("WWW-Authenticate", "BasicCustom realm=" +getRealmName());
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         PrintWriter writer = response.getWriter();
-        writer.println("HTTP Status 401 - " + authException.getMessage());
+        writer.println("HTTP Status 403 - " + authException.getMessage());
 		
 	}
 	

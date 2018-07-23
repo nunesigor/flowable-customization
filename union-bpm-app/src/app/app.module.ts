@@ -23,9 +23,10 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-    let headers = new HttpHeaders();
+    let headers = req.headers;
     headers = headers.append("X-Requested-With", "XMLHttpRequest");
     headers = headers.append('Content-Type', 'application/json');
+    console.log(headers);
     const authReq = req.clone({ headers: headers, responseType:"json", withCredentials:true});
     return next.handle(authReq);
   }

@@ -97,6 +97,8 @@ public class AppController {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		RestTemplate restTemplate = restTemplateFactory.getObject();
 		restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor(auth.getPrincipal().toString(),auth.getCredentials().toString()));
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("X-Requested-With", "XMLHttpRequest"); 
 		return restTemplate.exchange(restUrl + "idm-api/users/" + auth.getPrincipal().toString(), HttpMethod.GET, null, String.class);
     }
 
