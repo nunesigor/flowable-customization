@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { AuthService } from '../../auth.service';
+import { FlowableService, Body, Method } from 'src/app/flowable.service';
+import { AlertService, Message, MessageType } from 'src/app/alert/alert.service';
 
 @Component({
   selector: 'task',
@@ -11,63 +13,45 @@ import { AuthService } from '../../auth.service';
 })
 export class TaskComponent implements OnInit {
 
-  form: FormGroup;
-  currentPassword: AbstractControl;
-  newPassword: AbstractControl;
-  confirmPassword: AbstractControl;
-  errorNewPassword = '';
-  errorConfirmPassword = '';
-
+  listTasks:Array<any> = [];
+  loggedUser = null;
   
-  constructor(private auth:AuthService,
+  constructor(private flowable: FlowableService,
+    private alert:AlertService,
     private router: Router,
-    private formBuilder: FormBuilder) { 
-      this.form = formBuilder.group({
-        'currentPassword': ['', Validators.required],
-        'newPassword': ['', Validators.required],
-        'confirmPassword': ['', Validators.required]
-      });
-      this.currentPassword = this.form.controls['currentPassword'];
-      this.newPassword = this.form.controls['newPassword'];
-      this.confirmPassword = this.form.controls['confirmPassword'];
-
-      this.newPassword.valueChanges.pipe(debounceTime(600)).subscribe(val=>{
-        if (val === this.currentPassword.value){
-          this.errorNewPassword = 'Senha corrente e nova senha não podem ser iguais.';
-        } else {
-          this.errorNewPassword = '';
-        }
-        if (val !== this.confirmPassword.value){
-          this.errorConfirmPassword = 'Use a mesma senha para confirmar.';
-        } else {
-          this.errorConfirmPassword = '';
-        }
-      });
-
-      this.confirmPassword.valueChanges.pipe(debounceTime(600)).subscribe(val=>{
-        if (val !== this.newPassword.value){
-          this.errorConfirmPassword = 'Use a mesma senha para confirmar.';
-        } else {
-          this.errorConfirmPassword = '';
-        }
-      });
-    }
-
-  ngOnInit() {
-  }
-
-  changePassword(){
-    let data = {}
-    data['currentpassword'] = this.currentPassword.value;
-    data['newpassword'] = this.newPassword.value;
-    this.auth.changePassword(data).subscribe(res=>{
-      console.log(res);
-      
+    private auth:AuthService) { 
+    
+    this.auth.loggedUser.subscribe(user=>{
+      if (user){
+        this.loggedUser = user; 
+        this.loadTasks();
+      }      
     });
   }
 
-  submit(){
-    this.changePassword();
+  ngOnInit() {
+    
+  }
+
+  loadTasks(){
+    let data: Body = new Body();
+    data.method = Method.GET
+    data.uri = 'service/runtime/tasks?candidateOrAssigned='+this.loggedUser.id;
+    this.flowable.invoke(data).subscribe(res => {
+      this.listTasks = res['data'];
+      this.listTasks.map(el => {
+        el['dataIni'] = new Date(el.createTime);
+        el['dataFim'] = el.dueDate ? new Date(el.dueDate) : '';
+      });
+    },
+      (error) => {
+        this.alert.next(new Message(error.message,MessageType.DANGER));
+      });
+  }
+
+  gotoTask(task){
+    let id = encodeURIComponent(task.id);
+    this.router.navigate(['home', 'task', id]).catch(ex => this.alert.next(new Message(ex,MessageType.DANGER)));
   }
 
 }

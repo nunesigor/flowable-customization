@@ -27,7 +27,7 @@ export class ProcessComponent implements OnInit {
       this.listProcess = res['data'];
     },
       (error) => {
-        console.log(error);
+        this.alert.next(new Message(error.message,MessageType.DANGER));
       });
   }
 
@@ -46,14 +46,14 @@ export class ProcessComponent implements OnInit {
       this.router.navigate(['home', 'process', id]).catch(ex => console.log(ex));
     },
       (error) => {
-        this.alert.next(new Message(error,MessageType.DANGER));
+        this.alert.next(new Message(error.message,MessageType.DANGER));
       });
 
   }
 
   listprocessInstances(process) {
     let id = encodeURIComponent(process.id);
-    this.router.navigate(['home', 'process', id]).catch(ex => console.log(ex));
+    this.router.navigate(['home', 'process', id]).catch(ex => this.alert.next(new Message(ex,MessageType.DANGER)));
   }
 
 }

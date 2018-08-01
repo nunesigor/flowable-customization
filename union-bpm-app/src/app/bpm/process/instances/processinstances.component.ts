@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlowableService, Body, Method } from '../../../flowable.service';
 import { forkJoin } from 'rxjs';
-import { AlertService, Message, MessageType } from 'src/app/alert/alert.service';
+import { AlertService, Message, MessageType } from '../../../alert/alert.service';
+import { AuthService } from '../../../auth.service';
 
 @Component({
   selector: 'processinstances',
@@ -14,15 +15,18 @@ export class ProcessInstancesComponent implements OnInit {
   listProcessInstances: Array<any> = [];
   processDefinitionId = null;
   processDefinition = null;
+  loggedUser = null;
 
   constructor(private flowable: FlowableService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private alert: AlertService) {
+    private alert: AlertService,
+    private auth:AuthService) {
     this.activatedRoute.params.subscribe(p => {
       if (p['processId']) {
         this.processDefinitionId = decodeURIComponent(p['processId']);
       }
+      this.auth.loggedUser.subscribe(user=>this.loggedUser = user);
     });
   }
 

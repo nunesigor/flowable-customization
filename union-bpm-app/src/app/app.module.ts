@@ -18,6 +18,11 @@ import { ProcessComponent } from './bpm/process/process.component';
 import { ProcessInstancesComponent } from './bpm/process/instances/processinstances.component';
 import { AlertService } from './alert/alert.service';
 import { AlertComponent } from './alert/alert.component';
+import { TaskComponent } from './bpm/task/task.component';
+import { FieldControlService } from './dinamicform/fieldcontrol.service';
+import { DynamicFormComponent } from './dinamicform/dynamicform.component';
+import { DynamicFormFieldComponent } from "./dinamicform/DynamicFormFieldComponent";
+import { FieldService } from './dinamicform/field.service';
 
 
 @Injectable()
@@ -46,7 +51,10 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     ChangePasswordComponent,
     ProcessComponent,
     ProcessInstancesComponent,
-    AlertComponent
+    AlertComponent,
+    TaskComponent,
+    DynamicFormComponent,
+    DynamicFormFieldComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +72,9 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     CookieService,
     AuthService,
     FlowableService,
-    AlertService
+    AlertService,
+    FieldControlService,
+    FieldService
   ],
   bootstrap: [
     AppComponent

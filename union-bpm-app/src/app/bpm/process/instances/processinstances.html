@@ -20,8 +20,8 @@
           <td>{{process.dataIni | date:'short'}}</td>
           <td>{{process.dataFim | date:'short'}}</td>
           <td>
-            <button type="button" class="btn btn-primary" (click)="cancelProcessInstance(process)">Cancelar processo</button>
-            <button type="button" class="btn btn-primary" (click)="taskDetail(process)" style="margin-left:  1em;">Detalhes da tarefa</button>
+            <button *ngIf="process && loggedUser && process.assignee === loggedUser.id" type="button" class="btn btn-primary btn-sm" (click)="cancelProcessInstance(process)">Cancelar processo</button>
+            <button *ngIf="process && loggedUser && process.assignee === loggedUser.id" type="button" class="btn btn-primary btn-sm" (click)="taskDetail(process)" style="margin-left:  1em;">Detalhes da tarefa</button>
           </td>
         </tr>
       </tbody>

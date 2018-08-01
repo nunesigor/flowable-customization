@@ -5,6 +5,8 @@ import { HomeComponent } from "./home/home.component";
 import { ChangePasswordComponent } from "./changepassword/changepassword.component";
 import { ProcessComponent } from "./bpm/process/process.component";
 import { ProcessInstancesComponent } from "./bpm/process/instances/processinstances.component";
+import { TaskComponent } from "./bpm/task/task.component";
+import { TaskDetailComponent } from "./bpm/task/detail/taskdetail.component";
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,7 +16,8 @@ const appRoutes: Routes = [
         // {path: 'dashboard', component: LoginComponent},
         {path: 'process', component: ProcessComponent},
         {path: 'process/:processId', component: ProcessInstancesComponent},
-        // {path: 'task', component: LoginComponent},
+        {path: 'task', component: TaskComponent},
+        {path: 'task/:taskId', component: TaskDetailComponent},
         {path: 'changepassword', component: ChangePasswordComponent}
     ]}
 ]
