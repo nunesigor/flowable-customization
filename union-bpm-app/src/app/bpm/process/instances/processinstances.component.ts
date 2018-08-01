@@ -32,15 +32,7 @@ export class ProcessInstancesComponent implements OnInit {
     data.uri = 'service/repository/process-definitions/' + this.processDefinitionId;
     this.flowable.invoke(data).subscribe(res => {
       this.processDefinition = res;
-      let data2: Body = new Body();
-      data2.method = Method.GET
-      data2.uri = 'service/runtime/process-instances?processDefinitionId=' + this.processDefinitionId;
-      this.flowable.invoke(data2).subscribe(res => {
-        this.loadDetails(res['data']);
-      },
-      (error) => {
-          this.alert.next(new Message(error.message, MessageType.DANGER));
-      });
+      this.loadInstances();
     },
     (error) => {
         this.alert.next(new Message(error.message, MessageType.DANGER));
@@ -49,7 +41,20 @@ export class ProcessInstancesComponent implements OnInit {
 
   }
 
+  loadInstances(){
+    let data2: Body = new Body();
+    data2.method = Method.GET
+    data2.uri = 'service/runtime/process-instances?processDefinitionId=' + this.processDefinitionId;
+    this.flowable.invoke(data2).subscribe(res => {
+      this.loadDetails(res['data']);
+    },
+    (error) => {
+        this.alert.next(new Message(error.message, MessageType.DANGER));
+    });
+  }
+
   loadDetails(instances) {
+    this.listProcessInstances = [];
     forkJoin(instances.map(element => {
       let data: Body = new Body();
       data.method = Method.GET
@@ -73,7 +78,7 @@ export class ProcessInstancesComponent implements OnInit {
     this.flowable.invoke(data).subscribe(res => {
       console.log(res);
       this.alert.next(new Message('Processo cancelado com sucesso.', MessageType.SUCCESS));
-      
+      this.loadInstances();
     },
     (error) => {
         this.alert.next(new Message(error.message, MessageType.DANGER));
