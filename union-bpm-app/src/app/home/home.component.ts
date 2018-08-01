@@ -20,18 +20,6 @@ export class HomeComponent implements OnInit {
     private cookie:CookieService) { }
 
   ngOnInit() {
-    //   let data:Body = new Body();
-    //   data.method = Method.GET
-    //   data.uri = 'idm-api/users';
-    //   this.flowable.invoke(data).subscribe(res=>{
-    //     console.log(res);
-    //     this.user = res;
-    //   },
-    //   (error)=>{
-    //     console.log(error);
-    //     this.router.navigate(['login']);
-    //   });
-    // }
     this.auth.getUserData().subscribe(res => {
       this.auth.loggedUser.next(res);
       this.user = res;

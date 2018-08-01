@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { AuthService } from '../../auth.service';
 
 @Component({
-  selector: 'processos',
-  templateUrl: './processos.html',
-  styleUrls: ['./processos.css']
+  selector: 'tarefas',
+  templateUrl: './tarefas.html',
+  styleUrls: ['./tarefas.css']
 })
-export class ProcessosComponent implements OnInit {
+export class TarefasComponent implements OnInit {
 
   form: FormGroup;
   currentPassword: AbstractControl;
@@ -19,7 +19,7 @@ export class ProcessosComponent implements OnInit {
   errorConfirmPassword = '';
 
   
-  constructor(private auth: AuthService,
+  constructor(private auth:AuthService,
     private router: Router,
     private formBuilder: FormBuilder) { 
       this.form = formBuilder.group({

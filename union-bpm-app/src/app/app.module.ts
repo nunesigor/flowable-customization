@@ -14,6 +14,8 @@ import { Observable } from 'rxjs';
 import { FlowableService } from './flowable.service';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { ChangePasswordComponent } from './changepassword/changepassword.component';
+import { ProcessComponent } from './bpm/process/process.component';
+import { ProcessInstancesComponent } from './bpm/process/instances/processinstances.component';
 
 
 @Injectable()
@@ -26,7 +28,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     let headers = req.headers;
     headers = headers.append("X-Requested-With", "XMLHttpRequest");
     headers = headers.append('Content-Type', 'application/json');
-    console.log(headers);
+    //console.log(headers);
     const authReq = req.clone({ headers: headers, responseType:"json", withCredentials:true});
     return next.handle(authReq);
   }
@@ -39,7 +41,9 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     AppComponent,
     LoginComponent,
     HomeComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ProcessComponent,
+    ProcessInstancesComponent
   ],
   imports: [
     BrowserModule,
