@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { debounceTime } from 'rxjs/operators';
 import { AuthService } from '../../auth.service';
 import { FlowableService, Body, Method } from '../../flowable.service';
+import { AlertService, Message, MessageType } from '../../alert/alert.service';
+
 
 @Component({
   selector: 'process',
@@ -16,6 +18,7 @@ export class ProcessComponent implements OnInit {
 
 
   constructor(private flowable: FlowableService,
+    private alert:AlertService,
     private router: Router) {
     let data: Body = new Body();
     data.method = Method.GET
@@ -38,10 +41,12 @@ export class ProcessComponent implements OnInit {
     data.body =  '{"processDefinitionId": "requisicao_ferias:14:37b988d1-8eb9-11e8-bfbb-5abddbe5c67a",'+
       '"returnVariables": true}';
     this.flowable.invoke(data).subscribe(res => {
-      this.listProcess = res['data'];
+      this.alert.next(new Message('processo criado com sucesso.',MessageType.SUCCESS));
+      let id = encodeURIComponent(process.id);
+      this.router.navigate(['home', 'process', id]).catch(ex => console.log(ex));
     },
       (error) => {
-        console.log(error);
+        this.alert.next(new Message(error,MessageType.DANGER));
       });
 
   }

@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { LoginComponent } from "./login/login.component";
 import { HomeComponent } from "./home/home.component";
 import { ChangePasswordComponent } from "./changepassword/changepassword.component";
-import { ProcessComponent } from "src/app/bpm/process/process.component";
+import { ProcessComponent } from "./bpm/process/process.component";
 import { ProcessInstancesComponent } from "./bpm/process/instances/processinstances.component";
 
 const appRoutes: Routes = [

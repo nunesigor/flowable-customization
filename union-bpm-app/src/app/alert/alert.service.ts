@@ -10,7 +10,15 @@ export enum MessageType{
 
 export class Message{
     type: MessageType = MessageType.INFO;
-	message: string;
+    message: string;
+    
+    constructor(message:string,type?:MessageType,){
+        this.message = message;
+        if (type!==null){
+            this.type = type;
+        }
+    }
+
 }
 
 @Injectable()

@@ -16,6 +16,8 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { ChangePasswordComponent } from './changepassword/changepassword.component';
 import { ProcessComponent } from './bpm/process/process.component';
 import { ProcessInstancesComponent } from './bpm/process/instances/processinstances.component';
+import { AlertService } from './alert/alert.service';
+import { AlertComponent } from './alert/alert.component';
 
 
 @Injectable()
@@ -43,7 +45,8 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     HomeComponent,
     ChangePasswordComponent,
     ProcessComponent,
-    ProcessInstancesComponent
+    ProcessInstancesComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +63,8 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true  },
     CookieService,
     AuthService,
-    FlowableService
+    FlowableService,
+    AlertService
   ],
   bootstrap: [
     AppComponent

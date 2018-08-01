@@ -67,7 +67,7 @@ public class AppController {
 			result = restTemplate.exchange(restUrl + body.getUri(), HttpMethod.PUT, entity, String.class);
 			break;
 		case "DELETE":
-			result = restTemplate.exchange(restUrl + body.getUri(), HttpMethod.DELETE, entity, String.class);
+			result = restTemplate.exchange(restUrl + body.getUri(), HttpMethod.DELETE, null, String.class);
 			break;
 		case "OPTIONS":
 			result = restTemplate.exchange(restUrl + body.getUri(), HttpMethod.OPTIONS, entity, String.class);
@@ -97,8 +97,8 @@ public class AppController {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		RestTemplate restTemplate = restTemplateFactory.getObject();
 		restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor(auth.getPrincipal().toString(),auth.getCredentials().toString()));
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.set("X-Requested-With", "XMLHttpRequest"); 
+		//HttpHeaders responseHeaders = new HttpHeaders();
+		//responseHeaders.set("X-Requested-With", "XMLHttpRequest"); 
 		return restTemplate.exchange(restUrl + "idm-api/users/" + auth.getPrincipal().toString(), HttpMethod.GET, null, String.class);
     }
 

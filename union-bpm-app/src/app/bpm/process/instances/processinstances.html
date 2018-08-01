@@ -1,10 +1,11 @@
 <div class='row'>
   <div class="col-12">
+    <h3>Instâncias do Processo</h3>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">Descrição</th>
+          <th scope="col">Processo</th>
+          <th scope="col">Tarefa</th>
           <th scope="col">Associado</th>
           <th scope="col">Criação</th>
           <th scope="col">Encerramento</th>
@@ -14,7 +15,7 @@
       <tbody>
         <tr *ngFor="let process of listProcessInstances">
           <td>{{process.name}}</td>
-          <td>{{process.description}}</td>
+          <td>{{process.task}}</td>
           <td>{{process.assignee}}</td>
           <td>{{process.dataIni | date:'short'}}</td>
           <td>{{process.dataFim | date:'short'}}</td>
