@@ -12,18 +12,18 @@ import { FlowableService, Body, Method } from '../../flowable.service';
 })
 export class ProcessComponent implements OnInit {
 
-  listProcess:Array<any> = [];
+  listProcess: Array<any> = [];
 
-  
-  constructor(private flowable:FlowableService,
-     private router: Router) { 
-      let data:Body = new Body();
-      data.method = Method.GET
-      data.uri = 'service/repository/process-definitions?latest=true';
-      this.flowable.invoke(data).subscribe(res=>{
-        this.listProcess = res['data'];
-      },
-      (error)=>{
+
+  constructor(private flowable: FlowableService,
+    private router: Router) {
+    let data: Body = new Body();
+    data.method = Method.GET
+    data.uri = 'service/repository/process-definitions?latest=true';
+    this.flowable.invoke(data).subscribe(res => {
+      this.listProcess = res['data'];
+    },
+      (error) => {
         console.log(error);
       });
   }
@@ -31,24 +31,24 @@ export class ProcessComponent implements OnInit {
   ngOnInit() {
   }
 
-  createNewProcessInstance(process){
-
-    let data:Body = new Body();
-      data.method = Method.GET
-      data.uri = 'service/repository/process-definitions?latest=true';
-      this.flowable.invoke(data).subscribe(res=>{
-        this.listProcess = res['data'];
-      },
-      (error)=>{
+  createNewProcessInstance(process) {
+    let data: Body = new Body();
+    data.method = Method.POST
+    data.uri = 'service/runtime/process-instances';
+    data.body =  '{"processDefinitionId": "requisicao_ferias:14:37b988d1-8eb9-11e8-bfbb-5abddbe5c67a",'+
+      '"returnVariables": true}';
+    this.flowable.invoke(data).subscribe(res => {
+      this.listProcess = res['data'];
+    },
+      (error) => {
         console.log(error);
       });
 
   }
 
-  listprocessInstances(process){
-    console.log(process);
+  listprocessInstances(process) {
     let id = encodeURIComponent(process.id);
-    this.router.navigate(['home','process',id]).catch(ex=>console.log(ex));
+    this.router.navigate(['home', 'process', id]).catch(ex => console.log(ex));
   }
 
 }

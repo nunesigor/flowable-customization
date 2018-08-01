@@ -5,11 +5,11 @@ import { debounceTime } from 'rxjs/operators';
 import { AuthService } from '../../auth.service';
 
 @Component({
-  selector: 'tarefas',
-  templateUrl: './tarefas.html',
-  styleUrls: ['./tarefas.css']
+  selector: 'task',
+  templateUrl: './task.html',
+  styleUrls: ['./task.css']
 })
-export class TarefasComponent implements OnInit {
+export class TaskComponent implements OnInit {
 
   form: FormGroup;
   currentPassword: AbstractControl;

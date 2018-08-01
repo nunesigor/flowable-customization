@@ -8,7 +8,7 @@ import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler, HttpSentEv
 import { AuthService } from './auth.service';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { FlowableService } from './flowable.service';
@@ -46,6 +46,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     ProcessInstancesComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

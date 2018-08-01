@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FlowableService, Body, Method } from 'src/app/flowable.service';
+import { FlowableService, Body, Method } from '../../../flowable.service';
 import { forkJoin } from 'rxjs';
 
 
@@ -43,7 +43,11 @@ export class ProcessInstancesComponent implements OnInit {
       data.uri = 'service/runtime/tasks?processInstanceId='+element.id;
       return this.flowable.invoke(data);    
     })).subscribe(res=>{
-      res.map(element=>this.listProcessInstances.push(element['data'][0]))
+      res.map(element=>this.listProcessInstances.push(element['data'][0]));
+      this.listProcessInstances.map(el=>{
+        el['dataIni'] = new Date(el.createTime);
+        el['dataFim'] = el.dueDate ? new Date(el.dueDate) : '';
+      });
     })
   }
 
