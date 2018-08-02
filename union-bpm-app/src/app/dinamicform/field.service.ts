@@ -6,40 +6,84 @@ import { TextboxField } from "./textboxfield";
 @Injectable()
 export class FieldService {
 
-    // TODO: get from a remote source of question metadata
-    // TODO: make asynchronous
-    getFields() {
+    getFields(fieldsIn: Array<any>) {
+        let count = 0
+        let fieldsOut: FieldBase<any>[] = [];
+        fieldsIn.forEach(el => {
+            switch (el['type']) {
+                case "text": {
+                    fieldsOut.push(new TextboxField({
+                        key: el['id'],
+                        label: el['name'],
+                        value: el['value'],
+                        required: el['required'],
+                        type: el['type'],
+                        order: count++
+                    }));
+                    break;
+                }
+                case "date": {
+                    fieldsOut.push(new TextboxField({
+                        key: el['id'],
+                        label: el['name'],
+                        value: el['value']!==''?el['value']:Date.now(),
+                        required: el['required'],
+                        type: el['type'],
+                        order: count++
+                    }));
+                    break;
+                }
+                case "email": {
+                    fieldsOut.push(new TextboxField({
+                        key: el['id'],
+                        label: el['name'],
+                        value: el['value'],
+                        required: el['required'],
+                        type: el['type'],
+                        order: count++
+                    }));
+                    break;
+                }
+                case "number": {
+                    fieldsOut.push(new TextboxField({
+                        key: el['id'],
+                        label: el['name'],
+                        value: el['value'],
+                        required: el['required'],
+                        type: el['type'],
+                        order: count++
+                    }));
+                    break;
+                }
+                case "password": {
+                    fieldsOut.push(new TextboxField({
+                        key: el['id'],
+                        label: el['name'],
+                        value: el['value'],
+                        required: el['required'],
+                        type: el['type'],
+                        order: count++
+                    }));
+                    break;
+                }
+                // case "text":{
+                //     fieldsOut.push(new DropdownField({
+                //     key: 'brave',
+                //     label: 'Bravery Rating',
+                //     options: [
+                //         { key: 'solid', value: 'Solid' },
+                //         { key: 'great', value: 'Great' },
+                //         { key: 'good', value: 'Good' },
+                //         { key: 'unproven', value: 'Unproven' }
+                //     ],
+                //     order: 3
+                // }));
+                //     break;
+                // }
 
-        let fields: FieldBase<any>[] = [
+            }
+        });
 
-            new DropdownField({
-                key: 'brave',
-                label: 'Bravery Rating',
-                options: [
-                    { key: 'solid', value: 'Solid' },
-                    { key: 'great', value: 'Great' },
-                    { key: 'good', value: 'Good' },
-                    { key: 'unproven', value: 'Unproven' }
-                ],
-                order: 3
-            }),
-
-            new TextboxField({
-                key: 'firstName',
-                label: 'First name',
-                value: 'Bombasto',
-                required: true,
-                order: 1
-            }),
-
-            new TextboxField({
-                key: 'emailAddress',
-                label: 'Email',
-                type: 'email',
-                order: 2
-            })
-        ];
-
-        return fields.sort((a, b) => a.order - b.order);
+        return fieldsOut;
     }
 }

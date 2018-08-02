@@ -21,8 +21,9 @@ import { AlertComponent } from './alert/alert.component';
 import { TaskComponent } from './bpm/task/task.component';
 import { FieldControlService } from './dinamicform/fieldcontrol.service';
 import { DynamicFormComponent } from './dinamicform/dynamicform.component';
-import { DynamicFormFieldComponent } from "./dinamicform/DynamicFormFieldComponent";
+import { DynamicFormFieldComponent } from "./dinamicform/dynamicformfield.component";
 import { FieldService } from './dinamicform/field.service';
+import { TaskDetailComponent } from './bpm/task/detail/taskdetail.component';
 
 
 @Injectable()
@@ -54,7 +55,8 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     AlertComponent,
     TaskComponent,
     DynamicFormComponent,
-    DynamicFormFieldComponent
+    DynamicFormFieldComponent,
+    TaskDetailComponent
   ],
   imports: [
     CommonModule,

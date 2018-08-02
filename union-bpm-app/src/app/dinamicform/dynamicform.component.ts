@@ -1,12 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { FieldControlService } from "./fieldcontrol.service";
 import { FieldBase } from "./fieldbase";
-import { FormGroup } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
     selector: 'app-dynamic-form',
     templateUrl: './dynamicform.html',
-    providers: [ FieldControlService ]
   })
   export class DynamicFormComponent implements OnInit {
    
@@ -14,13 +12,23 @@ import { FormGroup } from "@angular/forms";
     form: FormGroup;
     payLoad = '';
    
-    constructor(private fcs: FieldControlService) {  }
+    constructor() {  }
    
     ngOnInit() {
-      this.form = this.fcs.toFormGroup(this.fields);
+      this.form = this.toFormGroup(this.fields);
     }
    
     onSubmit() {
       this.payLoad = JSON.stringify(this.form.value);
+    }
+
+    toFormGroup(fields: FieldBase<any>[] ) {
+      let group: any = {};
+  
+      fields.forEach(field => {
+        group[field.key] = field.required ? new FormControl(field.value || '', Validators.required)
+                                          : new FormControl(field.value || '');
+      });
+      return new FormGroup(group);
     }
   }

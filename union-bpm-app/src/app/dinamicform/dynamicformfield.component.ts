@@ -9,5 +9,5 @@ import { FormGroup } from "@angular/forms";
   export class DynamicFormFieldComponent {
     @Input() field: FieldBase<any>;
     @Input() form: FormGroup;
-    get isValid() { return this.form.controls[this.field.key].valid; }
+    // get isValid() { return this.form.controls[this.field.key].valid; }
   }

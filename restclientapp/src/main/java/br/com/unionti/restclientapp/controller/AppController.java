@@ -58,7 +58,7 @@ public class AppController {
 		HttpEntity<String> entity = new HttpEntity<String>(body.getBody(),headers);
 		switch (body.getMethod()) {
 		case "GET":
-			result = restTemplate.exchange(restUrl + body.getUri(), HttpMethod.GET, null, String.class);
+			result = restTemplate.exchange(restUrl + body.getUri(), HttpMethod.GET, entity, String.class);
 			break;
 		case "POST":
 			result = restTemplate.exchange(restUrl + body.getUri(), HttpMethod.POST, entity, String.class);
