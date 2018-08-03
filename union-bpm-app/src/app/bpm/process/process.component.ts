@@ -38,8 +38,7 @@ export class ProcessComponent implements OnInit {
     let data: Body = new Body();
     data.method = Method.POST
     data.uri = 'service/runtime/process-instances';
-    data.body =  '{"processDefinitionId": "requisicao_ferias:14:37b988d1-8eb9-11e8-bfbb-5abddbe5c67a",'+
-      '"returnVariables": true}';
+    data.body =  '{"processDefinitionId": "' + process.id + '","returnVariables": true}';
     this.flowable.invoke(data).subscribe(res => {
       this.alert.next(new Message('processo criado com sucesso.',MessageType.SUCCESS));
       let id = encodeURIComponent(process.id);
