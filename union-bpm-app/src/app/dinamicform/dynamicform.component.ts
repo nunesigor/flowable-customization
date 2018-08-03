@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FieldBase } from "./fieldbase";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 
 @Component({
     selector: 'app-dynamic-form',
@@ -12,7 +12,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
     form: FormGroup;
     payLoad = '';
    
-    constructor() {  }
+    constructor(private fb:FormBuilder) {  }
    
     ngOnInit() {
       this.form = this.toFormGroup(this.fields);
@@ -23,12 +23,14 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
     }
 
     toFormGroup(fields: FieldBase<any>[] ) {
-      let group: any = {};
-  
-      fields.forEach(field => {
-        group[field.key] = field.required ? new FormControl(field.value || '', Validators.required)
-                                          : new FormControl(field.value || '');
+      const group = this.fb.group({});
+      this.fields.forEach(control => {
+        if (control.required){
+          group.addControl(control.key, this.fb.control(control.value || '',Validators.required));
+        } else {
+          group.addControl(control.key, this.fb.control(control.value || ''));
+        }
       });
-      return new FormGroup(group);
+      return group;
     }
   }

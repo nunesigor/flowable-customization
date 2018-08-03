@@ -19,7 +19,6 @@ import { ProcessInstancesComponent } from './bpm/process/instances/processinstan
 import { AlertService } from './alert/alert.service';
 import { AlertComponent } from './alert/alert.component';
 import { TaskComponent } from './bpm/task/task.component';
-import { TaskDetailComponent } from './bpm/task/detail/taskdetail.component';
 import { FieldControlService } from './dinamicform/fieldcontrol.service';
 import { DynamicFormComponent } from './dinamicform/dynamicform.component';
 import { DynamicFormFieldComponent } from "./dinamicform/dynamicformfield.component";
@@ -55,7 +54,6 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     ProcessInstancesComponent,
     AlertComponent,
     TaskComponent,
-    TaskDetailComponent,
     DynamicFormComponent,
     DynamicFormFieldComponent,
     TaskDetailComponent
